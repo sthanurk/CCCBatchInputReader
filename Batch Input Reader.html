@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Batch Input Reader</title>
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/favicon_c.png" rel="icon" type="image">
+</head>
+<body>
+	<div id="header">
+	<div id="header_bg"></div>
+	<img id="FIS_Logo" src="css/FIS_Logo.png">
+	<h1>Data Contribution Collections and Closures</h1>
+	<img id="CCC_Logo" src="css/CCC_Logo.png"></div>
+	<div id="main_contents">
+	<h3 id="Formats">Select the Format Specification : <select id="specification" name="Format Specification" onchange="Choose_Format()">
+			<option value="1995R">
+				1995R
+			</option>
+			<option value="2003R">
+				2003R
+			</option>
+			<option value="2007R">
+				2007R
+			</option>
+			<option value="2009R">
+				2009R
+			</option>
+			<option selected value="2011R">
+				2011R
+			</option>
+		</select>
+		&nbsp;&nbsp;&nbsp;
+		<span><input type="checkbox" id="format" value="Lock Seleted Format" onclick="Confirm_Format()">Lock Seleted Format</span>
+		</h3>
+	
+	<iframe id=i_frame src="html/2011R.html" width = "14070px" height = "600px">
+	<p>Your browser does not support iframes.</p>
+	</iframe>
+	</div>
+	<script src="js/index.js">
+	</script>
+</body>
+</html>

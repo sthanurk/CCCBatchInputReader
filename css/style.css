@@ -1,0 +1,77 @@
+#header_bg {
+	position: relative;
+	background-image: url("Powering_the_Future.jpg");
+	background-color: rgba(0, 0, 0, 0.9);
+	opacity: 0.8;
+	height: 160px;
+	/* http://www.planwallpaper.com/static/images/824183-green-wallpaper.jpg
+	http://www.planwallpaper.com/static/images/elegant-grey-illumination-background-presentations-powerpoint-backgrounds.jpg
+	http://wallpaper-gallery.net/images/free-wallpaper-background-for-android/free-wallpaper-background-for-android-2.jpg */
+}
+
+#FIS_Logo {
+	position: absolute;
+	top: 40px;
+	left: 20px;
+	height: 60px;
+	float: left;
+	margin: 10px;
+}
+
+#CCC_Logo {
+	position: absolute;
+	top: 10px; 
+	right: 20px;
+	width: 130px;
+	margin: 10px;
+}
+
+#main_contents {
+	position: absolute;
+	top: 160px;
+}
+
+h1 {
+	position: absolute;
+	top: 2%;
+	left: 25%;
+	right: 25%;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	text-align: center;
+	letter-spacing: 0.5px;
+	font-size: 2.4rem;
+	color: transparent;
+	background-image: -webkit-linear-gradient(left, rgb(140, 198, 63), rgb(0, 185, 245));
+	background-image: -moz-linear-gradient(left, rgb(140, 198, 63), rgb(0, 185, 245));
+	background-image: -ms-linear-gradient(left, rgb(140, 198, 63), rgb(0, 185, 245));
+	background-image: -o-linear-gradient(left, rgb(140, 198, 63), rgb(0, 185, 245));
+	background-image: linear-gradient(to right, rgb(140, 198, 63), rgb(0, 185, 245));
+	
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: white;
+	-moz-text-stroke-width: 2px;
+	-moz-text-stroke-color: white;
+	-ms-text-stroke-width: 2px;
+	-ms-text-stroke-color: white;
+	-o-text-stroke-width: 2px;
+	-o-text-stroke-color: white;
+	text-stroke-width: 2px;
+	text-stroke-color: white;
+}
+
+h3 {
+color : rgb(151,0,216);
+margin-bottom : -2px;
+}
+
+#specification {
+color : rgb(151,0,216);
+width : 200px;
+font-weight : bold;
+}
+
+#i_frame {
+	border : none;
+}

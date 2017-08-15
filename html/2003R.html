@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Batch Input Reader - 2003R</title>
+	<link href="../css/style_all.css" rel="stylesheet">
+	<link href="../css/favicon_c.png" rel="icon" type="image">
+</head>
+<body>
+	<div id="Batch_Input_Reader">
+		<h2>Batch Input Reader - 2003R Specification</h2>
+	</div>
+	<div>
+		<p>Select a File to Load:</p><input id="fileToLoad" type="file"><button onclick="loadFileAsText()">Load Selected File</button>
+	</div><br>
+	<textarea autofocus id="batch_full" onchange="Maxlength_Verify()" oninput="text_to_table()" onkeypress="enterpressalert(event, this)" placeholder="Batch input here" wrap="off"></textarea><br>
+	<button id="export_content" onclick="saveTextAsFile(this.id)">Export file</button><br>
+	<table id="results_table" oninput="table_to_text()">
+		<tr>
+			<th>Record Type<br>
+			(1 - 2)</th>
+			<th>Security Code<br>
+			(3 - 10)</th>
+			<th>Routing Transit Number<br>
+			(11 - 19)</th>
+			<th>Account Number<br>
+			(20 - 39)</th>
+			<th>Primary/Joint Signer<br>
+			(40 - 40)</th>
+			<th>Action Code<br>
+			(41 - 41)</th>
+			<th>Account Opened Date<br>
+			(42 - 49)</th>
+			<th>Filler<br>
+			(50 - 50)</th>
+			<th>Account Holder's Last Name<br>
+			(51 - 70)</th>
+			<th>Account Holder's First Name<br>
+			(71 - 82)</th>
+			<th>Account Holder's Middle Name<br>
+			(83 - 90)</th>
+			<th>Name Suffix<br>
+			(91 - 93)</th>
+			<th>Social Security Number<br>
+			(94 - 102)</th>
+			<th>Driver's LicenseNumber<br>
+			(103 - 127)</th>
+			<th>Driver's License State<br>
+			(128 - 129)</th>
+			<th>Date of Birth<br>
+			(130 - 137)</th>
+			<th>Street Address<br>
+			(138 - 162)</th>
+			<th>Unit Description<br>
+			(163 - 172)</th>
+			<th>City<br>
+			(173 - 192)</th>
+			<th>State<br>
+			(193 - 194)</th>
+			<th>ZIP Code<br>
+			(195 - 199)</th>
+			<th>ZIP + 4<br>
+			(200 - 203)</th>
+			<th>Country<br>
+			(204 - 209)</th>
+			<th>Business Name<br>
+			(210 - 249)</th>
+			<th>Corporation Flag<br>
+			(250 - 250)</th>
+			<th>Federal Tax ID Number<br>
+			(251 - 259)</th>
+			<th>Date of Closure or Action<br>
+			(260 - 267)</th>
+			<th>Filler<br>
+			(268 - 268)</th>
+			<th>Reason forClosure/Action Code 1<br>
+			(269 - 269)</th>
+			<th>Reason forClosure/Action Code 2<br>
+			(270 - 270)</th>
+			<th>Reason forClosure/Action Code 3<br>
+			(271 - 271)</th>
+			<th>Home Phone<br>
+			(272 - 281)</th>
+			<th>Work Phone<br>
+			(282 - 291)</th>
+			<th>Collect<br>
+			(292 - 292)</th>
+			<th>Total Collection Amount<br>
+			(293 - 301)</th>
+			<th>Filler<br>
+			(302 - 310)</th>
+			<th>Filler<br>
+			(311 - 319)</th>
+			<th>Date Payment was made<br>
+			(320 - 327)</th>
+			<th>Comments 1<br>
+			(328 - 367)</th>
+			<th>Comments 2<br>
+			(368 - 407)</th>
+			<th>Generation Text<br>
+			(408 - 417)</th>
+			<th>Filler<br>
+			(418 - 429)</th>
+			<th>Authorized by Dept<br>
+			(430 - 449)</th>
+			<th>Phone Number of Authorizing Dept<br>
+			(450 - 459)</th>
+			<th>Filler<br>
+			(460 - 460)</th>
+			<th>Filler<br>
+			(461 - 490)</th>
+			<th>Filler<br>
+			(491 - 550)</th>
+			<th>Filler<br>
+			(551 - 590)</th>
+			<th>Filler<br>
+			(591 - 630)</th>
+			<th>Filler<br>
+			(631 - 670)</th>
+			<th>Filler<br>
+			(671 - 710)</th>
+			<th>Filler<br>
+			(711 - 718)</th>
+			<th>Delinquency Date<br>
+			(719 - 726)</th>
+			<th>Consumer DisputesDebt<br>
+			(727 - 727)</th>
+			<th>Voluntary Closure<br>
+			(728 - 728)</th>
+			<th>Total Charge-OffAmount<br>
+			(729 - 737)</th>
+			<th>Paid-in-Full/Settled-in-Full Date<br>
+			(738 - 745)</th>
+			<th>Bankruptcy Date<br>
+			(746 - 753)</th>
+		</tr>
+		<tr id="r1" onclick="highlight_row(this)">
+			<td><input id="c1" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c2" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c3" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c4" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c5" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c6" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c7" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c8" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c9" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c10" maxlength="12" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c11" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c12" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c13" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c14" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c15" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c16" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c17" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c18" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c19" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c20" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c21" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c22" maxlength="4" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c23" maxlength="6" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c24" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c25" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c26" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c27" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c28" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c29" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c30" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c31" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c32" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c33" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c34" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c35" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c36" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c37" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c38" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c39" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c40" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c41" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c42" maxlength="12" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c43" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c44" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c45" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c46" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c47" maxlength="60" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c48" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c49" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c50" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c51" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c52" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c53" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c54" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c55" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c56" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c57" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c58" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+		</tr>
+	</table><br>
+	<form>
+		<input id="new_record_btn" onclick="newrecord(this.id)" type="button" value="Insert New Detailed Record">
+	</form>
+	<p>Enter the number of records to be generated : <input id="ac_count" onchange="generate_accnos()" type="text">
+	 <input id="export_series" onclick="saveTextAsFile(this.id)" type="button" value="Generate records"></p>
+	<div id="generate_record_in_IE">
+		<p>Enter the number of records to be generated : <input id="id_id" name="id" type="text" value=""></p>
+		<p>Write file to : <input id="write_id" name="write" type="text" value="C:/CCC2017_2003R">
+		<a target = "_blank" id="open_path"><input id="writedata" onclick="Writedata()" type="button" value="Generate records" style="margin:0px 0px 0px 45px;"></a></p>
+	</div>
+	<script src="../js/index_2003.js">
+	</script>
+</body>
+</html>

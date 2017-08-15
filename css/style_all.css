@@ -1,0 +1,91 @@
+#Batch_Input_Reader {
+	heigth : 30px;
+	width : 900px;
+	border-style : none none ridge none;
+	border-width : 2px;
+	border-color : rgb(200,200,200);
+}
+
+h2 {
+	margin-top : 0px;
+	margin-bottom: 0px;
+	color : rgba(0, 128, 0, 1);
+}
+
+textarea {
+  height: 160px;
+  width: 900px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+
+/*table, th, td {
+  padding: 0px 10px 0px 10px;
+}*/
+
+td {
+  border: 1px solid black;
+}
+
+th {
+  text-align: left;
+  font-size:0.7em;
+}
+
+td>input {
+  resize: horizontal;
+  width: 125%;
+  margin : 1px;
+}
+
+td,
+th {
+  border: 10px;
+  width: 125%;
+  padding: 0px 10px 0px 10px;
+}
+
+input[type="text"]:disabled {
+    background: #dddddd;
+}
+
+.Mandatory{
+	color:rgb(136,0,21);
+}
+
+.Conditional{
+	color:rgb(0,0,160);
+}
+/*
+th:hover {
+  color: red;
+  position: relative;
+}
+
+th[title]:hover:after {
+  content: attr(title);
+  padding: 4px 8px;
+  color: #333;
+  position: absolute;
+  left: -10%;
+  bottom: 80%;
+  height: 60px;
+  width: 300px;
+  white-space: pre-wrap;
+  z-index: 20px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 0px 4px #222;
+  -webkit-box-shadow: 0px 0px 4px #222;
+  box-shadow: 0px 0px 4px #222;
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+}*/

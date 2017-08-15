@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Batch Input Reader - 2011R</title>
+	<link href="../css/style_all.css" rel="stylesheet">
+	<link href="../css/favicon_c.png" rel="icon" type="image">
+</head>
+<body>
+	<div id="Batch_Input_Reader">
+		<h2>Batch Input Reader - 2011R Specification</h2>
+	</div>
+	<div>
+		<p>Select a File to Load:</p><input id="fileToLoad" type="file"><button onclick="loadFileAsText()">Load Selected File</button>
+	</div><br>
+	<textarea autofocus id="batch_full" onchange="Maxlength_Verify()" oninput="text_to_table()" onkeypress="enterpressalert(event, this)" placeholder="Batch input here" wrap="off"></textarea><br>
+	<button id="export_content" onclick="saveTextAsFile(this.id)">Export file</button><br>
+	<table id="results_table" oninput="table_to_text()">
+		<tr>
+			<!-- ="<th>"&B2&" <br> ("&D2&" - "&E2&")"&"</th>" -->
+			<th title="Signer Type">Signer Type</th>
+			<th class="Not_Mandatory" title="Description : &#013; This field is provided for your use as a reference number for your (furnisher) tracking purposes. &#013;&#013;Format Rules / Values List :&#013; Left justified; blank fill if not applicable">Client Record Identifier<br>
+			(1 - 24)</th>
+			<th class="Mandatory" title="Description : &#013; Identifies to Chex a Closure Detail or Account Status Record Type being reported.&#013;&#013;Format Rules / Values List :&#013; Valid values &#013; 'AS' = Account Status &#013; 'CL' = Closure Detail">Record Type<br>
+			(25 - 26)</th>
+			<th class="Mandatory" title="Description : &#013; Use one of the valid values to indicate the appropriate action for each record: &#013; &#013; For all new records input an 'A' for adds. &#013; &#013; For any changes to a previously 'reported' record input a 'C' for change. &#013; &#013; To delete a previously reported record input a 'D' (not to be used for records paid/settled or sold) &#013; &#013; To report a payment amount on a closure detail record, input a 'P'. This code should be used for Closure Detail records only. &#013; &#013; To remove a signer from an account, input an 'R'. This code should be used for Account Status records only. &#013;&#013;Format Rules / Values List :&#013; Valid values for Closure 'CL' records: &#013; A = Add, C = Change, D = Delete, P = Payment &#013; &#013; Valid values for Account Status 'AS' records: &#013; A = Add, C = Change, D = Delete, R= Removal of a signer &#013; &#013; See Appendix J (previously Appendix B) for Action Code definitions">Action Code<br>
+			(27 - 27)</th>
+			<th class="Mandatory" title="Description : &#013; An 8 digit code assigned by Chex. &#013; &#013; Please note: This number may be different than the security code provided in the Header Record if more than one client branch is reporting to Chex in this file.&#013;&#013;Format Rules / Values List :&#013; ChexSystems Security Code a.k.a Master, Customer, or Client ID.">Security Code<br>
+			(28 - 35)</th>
+			<th class="Mandatory" title="Description : &#013; The numeric bank code and check digit code assigned by the American Bankers Association. &#013;&#013;Format Rules / Values List :&#013; Valid Value: &#013; Numeric range from 011000000 to 330000000. &#013; &#013; Do not provide repeated digits (such as all 0s or all 9s), or consecutive numbers (such as123456789).">Routing Transit Number<br>
+			(36 - 44)</th>
+			<th class="Mandatory" title="Description : &#013; The account number reported in this file should match the account number in the full MICR line.&#013;&#013;Format Rules / Values List :&#013; Valid Value: &#013; Must contain a minimum of 2 digits. &#013; Do not provide repeated digits (such as all 0s or all 9s), or consecutive numbers (such as123456789) or special characters, such as hyphens or alpha characters. &#013; &#013; Left justified, right space fill">Account Number<br>
+			(45 - 64)</th>
+			<th class="Mandatory" title="Description : &#013; This code defines the account type.&#013;&#013;Format Rules / Values List :&#013; Valid Values for Closure 'CL': &#013; CHE = CHECKING ACCOUNT &#013; SAV= SAVINGS ACCOUNT &#013; OTH = OTHER &#013; &#013; Valid Values for Account Status 'AS': &#013; CHE = CHECKING ACCOUNT &#013; SAV= SAVINGS ACCOUNT &#013; CDA = CERTIFICATE OF DEPOSIT &#013; HSA = HEALTH SAVINGS ACCOUNT &#013; MMA = MONEY MARKET ACCOUNT &#013; DCA = DEBIT CARD ACCOUNT &#013; IRA = INDIVIDUAL RETIREMENT ACCOUNT &#013; OTH = OTHER &#013; &#013; Do not report safety deposit boxes">Account Type Code<br>
+			(65 - 67)</th>
+			<th class="Mandatory" title="Description : &#013; The date the account was originally opened. &#013;&#013;Format Rules / Values List :&#013; Valid Format: YYYYMMDD &#013; Must be a current or past date, no future dates. &#013; If an account previously closed is reopened, input the date the account was reopened. &#013; Blank fill if not available due to a conversion &#013; ">Account Opened Date<br>
+			(68 - 75)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The amount first deposited in the account. &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. &#013; Blank fill if unknown or Record Type Code = Closure 'CL' seq #2">Initial Deposit Amount<br>
+			(76 - 84)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Indicates there is a hold on the account. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Y = Yes &#013; N = No &#013; &#013; Blank fill if unknown or Record Type Code = Closure 'CL' seq #2">Hold on an Account<br>
+			(85 - 85)</th>
+			<th class="Mandatory" title="Description : &#013; Classifies the record as a Business or Consumer.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Y = Reporting a Business &#013; N = Reporting a Consumer; or &#013; N = Reporting a signer who is financially liable&nbsp; for a business; i.e. sole proprietor or partner">Business Indicator<br>
+			(86 - 86)</th>
+			<th class="Mandatory" title="Description : &#013; The status of the account identified in this record. &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type Code is set to Account Status 'AS', seq #2. &#013; OP = Opened &#013; AC = Active &#013; IN = Inactive &#013; OD = Overdraft &#013; RS = Restricted, credits only &#013; NC = No Checks allowed &#013; FR = Frozen &#013; MA = Monitoring Abuse &#013; IF = Investigating Fraud &#013; IT = Investigating Third Party Fraud &#013; LS = Lost or Stolen &#013; CD = Closing &#013; CC = Closed by Consumer &#013; CF = Closed by Financial Institution &#013; CO = Closed and reopened &#013; &#013; For Account Status Code definitions see Appendix C&nbsp;(New Appendix). &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Account Status Code<br>
+			(87 - 88)</th>
+			<th class="Mandatory" title="Description : &#013; The date of the account status event. &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type is set to Account Status 'AS', seq #2. &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; Must be a current or past date, no future dates. &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Account Status Date<br>
+			(89 - 96)</th>
+			<th class="Mandatory" title="Description : &#013; The date the account was closed. &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if Record Type Code is set to a Closure 'CL', seq #2. &#013; Valid Format: YYYYMMDD &#013; Must be a current or past date, no future dates, nor the date the account was opened. &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2">Date of Closure<br>
+			(97 - 104)</th>
+			<th class="Mandatory" title="Description : &#013; Closure Reason Code 1 describes the primary reason for the closure. &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if Record Type Code is set to a Closure 'CL', seq #2. &#013; Valid Values: &#013; Example: Closure Reason Code '6' = Account Abuse would be entered on position 105. Left justified blank filled. &#013; &#013; See Appendix E (Previously Appendix F) for list of valid Closure Reason Codes. &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2">Closure Reason Code 1<br>
+			(105 - 106)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Closure Reason Code 2 describes the secondary reason for the closure. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Optional field to place more than one closure reason if applicable. &#013; &#013; Valid Values: &#013; Example: Closure Reason Code '6' = Account Abuse would be entered on position 105. Left justified blank filled. &#013; &#013; See Appendix E (Previously Appendix F) for list of valid Closure Reason Codes. &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2">Closure Reason Code 2<br>
+			(107 - 108)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Closure Reason Code 3 describes the third reason for the closure. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Optional field to place a 3rd closure reason if applicable. &#013; &#013; Valid Values: &#013; Example: Closure Reason Code '6' = Account Abuse would be entered on position 105. Left justified blank filled. &#013; See Appendix E (Previously Appendix F) for list of valid Closure Reason Codes. &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2">Closure Reason Code 3<br>
+			(109 - 110)</th>
+			<th class="Conditional" title="Description : &#013; Provide a comment to specify the reason why the account is in 'Frozen' status if applicable. &#013; Report for a Frozen Account Status only.&#013;&#013;Format Rules / Values List :&#013; Conditionally Required when the Account Status Code = Frozen 'FR' Seq #12. &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2 or for any other Account Status Code">Account Frozen Comment Text<br>
+			(111 - 140)</th>
+			<th class="Mandatory" title="Description : &#013; The Total Charge off Amount due when the account was forcibly closed including principal, service fees and interest. &#013; &#013; This amount does not change when providing payments. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if Record Type Code is set to a Closure 'CL' seq #2. &#013; &#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; DO NOT change this amount when providing updates on accounts. &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2.">Total Charge off Amount<br>
+			(141 - 155)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The Principal balance on the charged off account. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; If Principal Charge off Amount and Account Fees Charge off Amount are provided; the sum should equal Total Charge off Amount. &#013; &#013; Blank fill if not providing or if Record Type Code = Account Status 'AS' seq#2.">Principal Charge off Amount<br>
+			(156 - 170)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Service fees and interest on the charged off account. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; If Principal Charge off Amount and Account Fees Charge off Amount are provided; the sum should equal Total Charge off Amount. &#013; &#013; Blank fill if not providing or if Record Type Code = Account Status 'AS' seq#2.">Account Fees Charge off Amount<br>
+			(171 - 185)</th>
+			<th class="Mandatory" title="Description : &#013; The reporting status of the closed account. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if Record Type is set to Closure “CL”, seq #2. &#013; &#013; Valid Values: &#013; UP = Unpaid &#013; PP = Partially paid &#013; PL = Payment plan&nbsp; &#013; FP = Paid in full &#013; FS = Settled in full &#013; DS = Debt Sold &#013; &#013; For definitions on Closure Status Code see Appendix D (New Appendix). &#013; &#013; When reporting Change records where Action Code = 'C' the Closure Status Code will change from Unpaid 'UP' to one of the following: PP, FP, FS, DS refer to Appendix L (Previously Appendix K). &#013; &#013; Blank fill if not providing or if Record Type Code = Account Status 'AS' seq#2.">Closure Status Code<br>
+			(186 - 187)</th>
+			<th class="Mandatory" title="Description : &#013; The effective date of the Closure Status Code. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if Record Type Code is set to a Closure 'CL', seq #2. &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq#2.">Closure Status Date<br>
+			(188 - 195)</th>
+			<th class="Conditional" title="Description : &#013; Amount paid as agreed upon to settle outstanding debt, if less than the Total Charge off Amount. &#013; &#013; Report for Closure Detail records Settled in Full 'FS' Closure Status Codes only.&#013;&#013;Format Rules / Values List :&#013; Conditionally Required when reporting a Closure Status Code of Settled in Full 'FS', seq #22. &#013; &#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled &#013; &#013; See Appendix L (Previously Appendix K) for details &#013; &#013; Blank fill if not applicable">Settled In Full Amount (SIF)<br>
+			(196 - 210)</th>
+			<th class="Conditional" title="Description : &#013; The date the account was sold to a debt purchaser. &#013; &#013; Report for Closure Detail records only when accounts previously reported have been sold.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting a Closure Status Code of Debt Sold 'DS', seq #22. &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; See Appendix L (Previously Appendix K) for details &#013; &#013; Blank fill if not applicable">Sold Account Date<br>
+			(211 - 218)</th>
+			<th class="Conditional" title="Description : &#013; The name of the debt purchaser to whom the account was sold. &#013; &#013; Report for Closure Detail records only when accounts previously reported have been sold.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting a Closure Status Code of 'DS', seq #22 &#013; &#013; See Appendix L (Previously Appendix K) for details &#013; &#013; Blank fill if not applicable">Sold to Entity Name<br>
+			(219 - 253)</th>
+			<th class="Conditional" title="Description : &#013; Date when the account was purchased by the debt purchaser. &#013; &#013; Report only if you are a Debt Purchaser.&#013;&#013;Format Rules / Values List :&#013; Conditionally required for the Debt Purchaser. &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; See Appendix M (Previously Appendix I) for further details on what Debt Purchasers are required to complete. &#013; &#013; Blank fill if not applicable">Account Purchased Date<br>
+			(254 - 261)</th>
+			<th class="Conditional" title="Description : &#013; The name of the institution that sold the accounts to you- the debt purchaser. &#013; &#013; Report only if you are a Debt Purchaser.&#013;&#013;Format Rules / Values List :&#013; Conditionally required for the Debt Purchaser. &#013; &#013; Special characters allowed: (-) (hyphen), '~' (tilde), ''' (single quote), and/or '' ' (apostrophe). &#013; &#013; See Appendix M (Previously Appendix I) further for details &#013; &#013; Blank fill if not applicable">Purchased From Entity Name<br>
+			(262 - 296)</th>
+			<th class="Conditional" title="Description : &#013; Total remaining balance after a payment has been posted to the account. &#013; &#013; Report for Closure Detail Action Code of Payment 'P' records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if Action Code = 'P' Payment, seq #3: &#013; &#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; Blank fill when reporting any other Action Code within a Closure 'CL' record &#013; &#013; Blank fill if Record Type = Account Status 'AS' seq #2 &#013; &#013; See Appendix K (Previously Appendix J) for details">Total Remaining Balance Amount<br>
+			(297 - 311)</th>
+			<th class="Conditional" title="Description : &#013; The amount the account holder actually paid on the last scheduled payment. &#013; &#013; Report for Closure Detail Action Code of Payment 'P' records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if Action Code = 'P' for Payment, seq #3. &#013; &#013; Valid Value: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; Blank fill when reporting any other Action Code within a Closure 'CL' record &#013; &#013; Blank fill if Record Type = Account Status 'AS' seq #2 &#013; &#013; See Appendix K (Previously Appendix J) for details">Closure Payment Amount<br>
+			(312 - 326)</th>
+			<th class="Conditional" title="Description : &#013; The date the last payment was made by the Consumer. &#013; &#013; Report for Closure Detail Action Code of Payment 'P' records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if Action Code = 'P' for Payment, seq #3. &#013; &#013; Valid Format: &#013; YYYYMMDD &#013; &#013; Must be a valid current date; do not list a future date. &#013; &#013; Blank fill when reporting any other Action Code within a 'CL' record &#013; &#013; Blank fill if Record Type = 'AS' seq #2 &#013; &#013; See Appendix K (Previously Appendix J) for details">Closure Payment Date<br>
+			(327 - 334)</th>
+			<th class="Conditional" title="Description : &#013; When reporting a change to a Closure Detail record, this code identifies the reason for the change. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if Action Code = 'C' for Change, seq #3 &#013; &#013; Valid Values: &#013; PFSF = Debt Paid or Settled &#013; ACSLD = Account sold to a third party &#013; DDA = Activating the account for collection by CPRS &#013; &#013; Blank fill if not applicable or if Record Type = 'AS' seq #2 &#013; &#013; See Appendix L (Previously Appendix K) for details&nbsp;">Reason for Change Code<br>
+			(335 - 339)</th>
+			<th class="Conditional" title="Description : &#013; When requesting to delete a record, this code identifies the reason. There are only 4 reasons a record should be deleted: Reported in error, account is included in bankruptcy or the consumer is a victim of fraud or ID theft. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if Action Code = ' D' for Delete , seq #3. &#013; &#013; Valid Values: &#013; ERR = Bank error or reported by mistake &#013; BAN = Bankruptcy &#013; IDT = Consumer is victim ID theft &#013; FRD = Consumer is a victim of Fraud &#013; &#013; Blank fill if not applicable or if Record Type = Account Status 'AS' seq #2">Reason for Delete Code<br>
+			(340 - 344)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Optional - Free Form - ie Identifies the type of checking account the consumer has, such as, ">Account Sub Type Code<br>
+			(345 - 349)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(350 - 444)</th>
+			<th class="Not_Mandatory" title="Description : &#013; This field indicates the type of signer in the record for the account. &#013; Create a separate record for each consumer and/or business being reported for the account.&#013;&#013;Format Rules / Values List :&#013; Valid values for Closure 'CL' records: &#013; 1 = Primary Signer &#013; 2 = Joint Signer &#013; &#013; For business closure report the business name as the primary signer. &#013; &#013; Valid values for Account Status 'AS' records: &#013; 1 = Primary Signer &#013; 2 = Joint Signer &#013; 3 = Authorized User of an account &#013; 4 = Secondary Signer &#013; 5 = Co-signer &#013; 6 = Custodian &#013; 7 = Personal Representative/On Behalf of Signer &#013; 8 = Business Name &#013; 9 = Unknown &#013; &#013; *Only one primary signer per account reported. &nbsp; &#013; &#013; See Appendix H (Previously Appendix G) for more information &#013; &#013; Blank fill if not available">Account Signer Code<br>
+			(445 - 445)</th>
+			<th class="Mandatory" title="Description : &#013; This code indicates to Chex the name format.&#013;&#013;Format Rules / Values List :&#013; P = Consumer Name; use seq #'s 37-42 &#013; P = Name of a signer financially liable for a business; i.e. sole proprietor or partner; use seq #'s 37-42 &#013; B = Business Name; use seq #43 &#013; &#013; If the Business Indicator, seq #11 is coded with a 'Y' = Yes; use 'B' for Business Name. If the Business Indicator, seq #11 is coded with an 'N' = No; use 'P' for Consumer/Signer Name. ">Name Format Code<br>
+			(446 - 446)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The prefix of a consumer's name. &#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; MR &#013; MS &#013; MRS &#013; MISS &#013; DR &#013; HONORABLE &#013; REV &#013; &#013; Do not provide any punctuation including 'periods'. ">Consumer's Name Prefix<br>
+			(447 - 461)</th>
+			<th class="Mandatory" title="Description : &#013; First name of the consumer.&#013;&#013;Format Rules / Values List :&#013; Valid Value: FIRST NAME &#013; &#013; Spaces are not allowed; hyphens are acceptable.">Consumer's First Name<br>
+			(462 - 481)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Middle name of the consumer.&#013;&#013;Format Rules / Values List :&#013; Valid Value: MIDDLE NAME &#013; &#013; Spaces are not allowed; hyphens are acceptable.">Consumer's Middle Name<br>
+			(482 - 501)</th>
+			<th class="Mandatory" title="Description : &#013; Last name of the consumer.&#013;&#013;Format Rules / Values List :&#013; Valid Value: LAST NAME &#013; &#013; Spaces are not allowed; hyphens are acceptable.">Consumer's Last Name<br>
+			(502 - 531)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Generation text of the consumer's name is applicable.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; JR &#013; SR &#013; II &#013; III &#013; IV &#013; &#013; Do not provide any punctuation including 'periods'.">Consumer's Name Generation<br>
+			(532 - 541)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Use if a suffix is appropriate.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; MD &#013; DDS &#013; PHD &#013; MA &#013; ESQ &#013; MSW &#013; &#013; Do not provide any punctuation including 'periods'.">Consumer's Name Suffix<br>
+			(542 - 556)</th>
+			<th class="Conditional" title="Description : &#013; Name of the Business.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting a Business as indicated in Name Format Type Code in seq #36 'B' = Business and the Business Indicator in seq #11 'Y' = Yes.">Business Name<br>
+			(447 - 531)</th>
+			<th class="Conditional" title="Description : &#013; Future use Business Name&#013;&#013;Format Rules / Values List :&#013; Blank fill when reporting Business Name.">Filler<br>
+			(532 - 556)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill ">Filler<br>
+			(557 - 641)</th>
+			<th class="Conditional" title="Description : &#013; Identifies the Business Classification.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting a Business; as indicated in the Name Format Type Code seq #36 is 'B' = Business and Business Indicator seq #11 is 'Y' = Yes. &#013; &#013; Valid Values: &#013; 01 = Sole Proprietor &#013; 02 = Corporation &#013; 03 = Partnership &#013; 04 = S-Corporation &#013; 05 = Non-profit Organization &#013; 07 = Limited Liability Partnership (LLP) &#013; 08 = Limited Liability Company (LLC) &#013; 10 = Limited Partnership (LP) &#013; 11 = Limited Liability Limited Partnership (LLLP) &#013; &#013; Blank fill if the Name Format Type Code = 'P' (seq # 36); or &#013; Leave blank if the FI is unable to determine the Business Classification and DO NOT provide a separate signer record associated with the business (because signer information is only appropriate for sole proprietors and partnerships).">Business Classification Code<br>
+			(642 - 643)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The date the initial account was established with consumer and/or business; may have multiple accounts this field represents the oldest account ever opened. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Format: 'YYYYMMDD' &#013; &#013; Must be a valid date, not a future date. &#013; &#013; Blank fill if not applicable or the Record Type Code = Closure 'CL' seq #2">Consumer Relationship Date<br>
+			(644 - 651)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The number of open accounts you have with a consumer or business. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Blank fill if not available or when the Record Type Code = Closure 'CL', seq #2">Consumer Relationship Number<br>
+			(652 - 660)</th>
+			<th class="" title="">Date of Birth Or Date of Incorporation<br>
+			(661 - 668)</th>
+			<th class="Mandatory" title="Description : &#013; Type of Government Number issued in seq #50.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; SSN - Social Security Number &#013; ITIN - Individual Tax Payer Number &#013; EIN - Employer Identification Number, a.k.a TIN for tax identification number.">Government Number Type Code<br>
+			(669 - 672)</th>
+			<th class="Mandatory" title="Description : &#013; Government Number assigned to the consumer or business.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Do not provide repeated digits (such as all 0s or all 9s), or consecutive numbers (such as123456789). Do NOT include punctuation such as dashes or slashes (-/).">Government Number<br>
+			(673 - 681)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The type of Alternative Identification Code in seq #52. &#013; &#013; For consumer records only.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID &#013; Required when the Alternative Identification Number is present within seq #52. &#013; &#013; Valid Values: &#013; 1 = Passport &#013; 2 = Work Visa &#013; 3 = Green Card &#013; 4 = Student ID &#013; 5 = Matricula ID &#013; 8 = Employer ID &#013; 9 = Other &#013; &#013; Blank fill if not applicable">Alternative Identification Code<br>
+			(682 - 682)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The Alternative Identification Number assigned to the consumer. &#013; &#013; For consumer records only.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID &#013; &#013; Do not provide repeated digits (such as all 0s or all 9s), or consecutive numbers (such as123456789). &#013; &#013; Do NOT include punctuation such as dashes or slashes (-/). &#013; &#013; Blank fill if not applicable">Alternative Identification Number<br>
+			(683 - 712)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The date the Alternative Identifier was issued. &#013; &#013; ** Preferred if an Alternate Identifier is provided.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; Blank fill if not applicable">Alternative Identification Date of Issue<br>
+			(713 - 720)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The expiration date of the Alternative Identifier. &#013; &#013; ** Preferred if an Alternate Identifier is provided.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID &#013; &#013; Valid Format: YYYYMMDD &#013; &#013; Blank fill if not applicable">Alternative Identification Expiration Date<br>
+			(721 - 728)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The State, Territory or Province that issued the Alternative Identifier. &#013; &#013; ** Preferred if an Alternate Identifier is provided.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID. &#013; &#013; See Appendix B for a list of State, Territory & Province codes. &#013; &#013; Blank fill if not applicable">Alternative Identification State, Territory or Province<br>
+			(729 - 733)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The country that issued the Alternative Identifier &#013; &#013; ** Preferred if an Alternate Identifier is provided.&#013;&#013;Format Rules / Values List :&#013; Follow seq #'s 51-57 for Alternative ID. &#013; &#013; Valid Values are ISO 3 character codes, examples include: &#013; USA = United States &#013; CAN = Canada &#013; MEX = Mexico &#013; &#013; Blank fill if not applicable">Alternative Identification Country of Issuance<br>
+			(734 - 736)</th>
+			<th class="Not_Mandatory" title="Description : &#013; A comment box for any additional information related to the Alternative ID.&#013;&#013;Format Rules / Values List :&#013; Blank fill if not applicable">Alternative Identification Comment Text<br>
+			(737 - 786)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Driver's license, state or military ID number. &#013; &#013; For consumer records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required Follow seq # 58-59 for Driver's License. &#013; &#013; Do not provide repeated digits (such as all 0s or all 9s), or consecutive numbers (such as123456789). &#013; &#013; Do NOT include punctuation such as dashes or slashes (-/). &#013; &#013; Blank fill if not applicable">Driver's License Number<br>
+			(787 - 811)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The state code for the driver's license, state or military ID issued.&#013;&#013;Format Rules / Values List :&#013; Follow seq # 58-59 for Driver's License. &#013; &#013; If issued in a military location ('AA', 'AE', 'AP'), value must be 'MY'. &#013; &#013; See Appendix B for a list of State & Province codes. &#013; &#013; Blank fill if not applicable">Driver's License State<br>
+			(812 - 813)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(814 - 913)</th>
+			<th class="Mandatory" title="Description : &#013; This code indicates to Chex the address format.&#013;&#013;Format Rules / Values List :&#013; All records must include a data value of ">Address Format Code<br>
+			(914 - 914)</th>
+			<th class="Mandatory" title="Description : &#013; The mailing address for the consumer or business named in this record. &#013;&#013;Format Rules / Values List :&#013; Provide the current or last known address. &#013; &#013; Valid Format Examples: &#013; Street Address = 123 S MAIN ST NW APT 12B &#013; PO Box = PO BOX 44 &#013; Rural Route = RT 29 BOX 1B &#013; &#013; DO NOT use filler such as Hold Mail or Mail Stop, etc. ">Address Line 1 Text<br>
+			(915 - 1013)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The second line of the mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format Examples: &#013; SUITE 101 &#013; APT B2 &#013; &#013; Blank fill if not applicable">Address Line 2 Text<br>
+			(1014 - 1112)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(1113 - 1211)</th>
+			<th class="Mandatory" title="Description : &#013; The city name of the mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format: &#013; CITY NAME &#013; &#013; Do not provide punctuation within the City Name Field.">City<br>
+			(1212 - 1241)</th>
+			<th class="Mandatory" title="Description : &#013; The state, territory, or province of the mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format: &#013; STATE, TERRITORY or PROVINCE &#013; &#013; See Appendix B for a current list of State, Territory, & Province codes.">State/Territory, Province Code<br>
+			(1242 - 1246)</th>
+			<th class="Mandatory" title="Description : &#013; The postal code (ZIP code) of the mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format: &#013; USA = #########- required to provide the 5 digit zip and blank fill if the last 4 are not available. &#013; Canada = ANA NAN &#013; Mexico = ##### &#013; &#013; Left justified, right space filled">Postal Code<br>
+			(1247 - 1255)</th>
+			<th class="Mandatory" title="Description : &#013; The country code of the mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Values are ISO 3 character codes, examples include: &#013; USA = United States &#013; CAN = Canada &#013; MEX = Mexico">Country Code<br>
+			(1256 - 1258)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format: &#013; Street Address = 123 S MAIN ST NW APT 12B &#013; PO Box = PO BOX 44 &#013; Rural Route = RT 29 BOX 1B &#013; &#013; DO NOT use filler such as hold mail or mail stop, etc. &#013; &#013; Blank fill if not applicable">Previous Address Line 1 Text<br>
+			(1259 - 1357)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The second line of the previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Valid Format: &#013; SUITE 101 &#013; APT B2 &#013; &#013; Blank fill if not applicable &#013; ">Previous Address Line 2 Text<br>
+			(1358 - 1456)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The city of the previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Required when the previous address is present within seq #68. &#013; &#013; Valid Format: &#013; CITY NAME &#013; &#013; Do not provide punctuation within the City Name Field. &#013; &#013; Blank fill if not applicable">Previous City Name<br>
+			(1457 - 1486)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The state, territory, or province of the previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Required when the previous address is present within seq #68. &#013; &#013; Valid Format: &#013; STATE, TERRITORY or PROVINCE &#013; &#013; See Appendix B for a current list of State, Territory, & Province codes. &#013; &#013; Blank fill if not applicable">Previous State/ Territory, Province Code<br>
+			(1487 - 1491)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The postal code (ZIP code) of the previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Required when the previous address is present within seq #68. &#013; &#013; Valid Format: &#013; USA = ######### &#013; Canada = ANA NAN &#013; Mexico = ##### &#013; &#013; Left justified, right space filled &#013; &#013; Blank fill if not applicable">Previous Postal Code<br>
+			(1492 - 1500)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The country code of the previous mailing address.&#013;&#013;Format Rules / Values List :&#013; Required when the previous address is present within seq #68. &#013; &#013; Valid Values are ISO 3 character codes, examples include: &#013; USA = United States &#013; CAN = Canada &#013; MEX = Mexico &#013; &#013; Blank fill if not applicable">Previous Country Code<br>
+			(1501 - 1503)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The first phone number of the consumer or business. &#013; &#013; **Preference is to place the consumer's home phone first.&#013;&#013;Format Rules / Values List :&#013; Valid Format : &#013; AAAPPPNNNN &#013; &#013; (AAA = Area Code, PPP = Phone Prefix, NNNN = Phone Number) &#013; &#013; Blank fill if not available">Phone Number 1<br>
+			(1504 - 1513)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The type of phone number listed in phone number 1.&#013;&#013;Format Rules / Values List :&#013; Valid Value(s): &#013; H = Home &#013; W = Work &#013; C = Cell/Mobile &#013; &#013; Blank fill if not available">Phone Number 1 Type<br>
+			(1514 - 1514)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The second phone number of the consumer or business.&#013;&#013;Format Rules / Values List :&#013; Valid Format : &#013; AAAPPPNNNN &#013; &#013; (AAA = Area Code, PPP = Phone Prefix, NNNN = Phone Number) &#013; &#013; Blank fill if not available">Phone Number 2<br>
+			(1515 - 1524)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The type of phone number listed in phone number 2.&#013;&#013;Format Rules / Values List :&#013; Valid Value(s): &#013; H = Home &#013; W = Work &#013; C = Cell/Mobile &#013; &#013; Blank fill if not available">Phone Number 2 Type<br>
+			(1525 - 1525)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The third phone number of the consumer or business.&#013;&#013;Format Rules / Values List :&#013; Valid Format : &#013; AAAPPPNNNN &#013; &#013; (AAA = Area Code, PPP = Phone Prefix, NNNN = Phone Number) &#013; &#013; Blank fill if not available">Phone Number 3<br>
+			(1526 - 1535)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The type of phone number listed in phone number 3.&#013;&#013;Format Rules / Values List :&#013; Valid Value(s): &#013; H = Home &#013; W = Work &#013; C = Cell/Mobile &#013; &#013; Blank fill if not available">Phone Number 3 Type<br>
+			(1536 - 1536)</th>
+			<th class="Not_Mandatory" title="Description : &#013; An email address for the consumer or business account&#013;&#013;Format Rules / Values List :&#013; Valid value: &#013; Xxx Xxxxx@Xxxxx.com &#013; &#013; Characters “@” (at sign), “.” (period), “_” (underscore), “&” (ampersand) are allowed. &#013; &#013; Blank fill if not available">Email Address<br>
+			(1537 - 1636)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(1637 - 1991)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The total amount of debits recorded on this account during the reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justify zero filled. &#013; &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Total Debit Amounts<br>
+			(1992 - 2006)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Number of debits recorded on this account during the reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Right justify, zero fill. &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Number of Debit Transactions<br>
+			(2007 - 2011)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future Use&#013;&#013;Format Rules / Values List :&#013; Blank Fill">Filler<br>
+			(2012 - 2026)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Number of credits recorded on this account during the reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Right justify, zero fill. &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Number of Credit Transactions<br>
+			(2027 - 2031)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The total amount of direct deposits recorded on this account during the reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justify zero filled. &#013; &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Total Direct Deposit Amounts<br>
+			(2032 - 2046)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Number of direct deposits recorded on this account during the reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Right justify, zero fill. &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Number of Direct Deposit Transactions<br>
+			(2047 - 2051)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Indicates the date of the last direct deposit made on this account. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; YYYYMMDD Format &#013; &#013; Blank fill if not applicable">Date of Last Direct Deposit<br>
+			(2052 - 2059)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Indicates the date of the last deposit made on this account. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally Required if the Account Type Code is a CHE or DCA, seq #7. YYYYMMDD Format &#013; &#013; Blank fill if not applicable">Last Deposit Date<br>
+			(2060 - 2067)</th>
+			<th class="Mandatory" title="Description : &#013; Current balance on account at the time the record is submitted. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type is set to Account Status 'AS', seq #2. &#013; &#013; Valid values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) sign before the dollar amount to indicate a number less than zero, right justify zero filled. &#013; &#013; Blank fill if Record Type = Closure 'CL' (seq #2)">Current Account Balance<br>
+			(2068 - 2082)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The total amount of credits recorded on this account during this reporting period. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justify zero filled. &#013; &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Total Credit Amounts<br>
+			(2083 - 2097)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The average ledger balance on this account during this reporting period. &#013; &#013; Report for Account Status Records only.&#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) sign before the dollar amount to indicate a number less than zero. Right justify zero filled. &#013; &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Average Account Balance<br>
+			(2098 - 2112)</th>
+			<th class="Mandatory" title="Description : &#013; Available balance on account. This amount could be the same as Current Account Balance. &#013; &#013; Report for Account Status records only. &#013;&#013;Format Rules / Values List :&#013; Required if the Record Type is set to Account Status 'AS', seq #2. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) sign before the dollar amount to indicate a number less than zero. Right justify zero filled. &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Available Account Balance<br>
+			(2113 - 2127)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Unavailable funds on the account. (For example: a hold is placed on a deposit) &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) sign before the dollar amount to indicate a number less than zero. Right justify zero filled. &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Un-available Account Balance<br>
+			(2128 - 2142)</th>
+			<th class="Conditional" title="Description : &#013; Number of overdrafts on an account. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting Account Status Type Code 'OD' = Overdraft seq #12. &#013; &#013; Blank fill for any other Account Status Type Code in seq #12 or the Record Type Code = Closure 'CL' seq #2">Overdrafts Number<br>
+			(2143 - 2145)</th>
+			<th class="Conditional" title="Description : &#013; Total overdraft amount reported on the account. &#013; &#013; Report for Account Status records only. &#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting Account Status Type Code = Overdraft 'OD', seq #12. &#013; &#013; Blank fill for any other Account Status Type Code in seq #12 or the Record Type Code= Closure 'CL' seq #2">Overdraft Amount<br>
+			(2146 - 2160)</th>
+			<th class="Conditional" title="Description : &#013; The number of returned items on an account. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting Account Status Type Code = Overdraft 'OD', seq #12. &#013; &#013; Blank fill for any other Account Status Type Code in seq #12 or the Record Type Code = Closure 'CL' seq #2">Returns Number<br>
+			(2161 - 2163)</th>
+			<th class="Conditional" title="Description : &#013; The dollar amount of total returned items. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting Account Status Type Code = Overdraft 'OD', seq #12. &#013; &#013; Total dollar amount returned during the reporting period. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled. &#013; &#013; Blank fill for any other Account Status Type Code in seq #12 or the Record Type Code = Closure 'CL' seq #2">Return Amount<br>
+			(2164 - 2178)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The sum of checks that are in transit on day 1 from the date they were deposited. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Float Amount 1<br>
+			(2179 - 2193)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The sum of checks that are in transit in day2 from the date they were deposited. &#013; &#013; Report for Account Status records only. &#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Float Amount 2<br>
+			(2194 - 2208)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The sum of checks that are in transit on day 3 from the date they were deposited. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Float Amount 3<br>
+			(2209 - 2223)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The sum of checks that are in transit on day 4 from the date they were deposited. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Float Amount 4<br>
+			(2224 - 2238)</th>
+			<th class="Not_Mandatory" title="Description : &#013; The sum of checks that are in transit on day 5 from the date they were deposited. &#013; &#013; Report for Account Status records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. Right justified zero filled &#013; &#013; Blank fill if Record Type Code = Closure 'CL' seq #2">Float Amount 5<br>
+			(2239 - 2253)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(2254 - 2371)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Collection Payment Source&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; 1 = CPRS received payment from consumer &#013; 2 = Financial Institution received payment from consumer &#013; &#013; Blank fill if not applicable">Collection Payment Source<br>
+			(2372 - 2372)</th>
+			<th class="Not_Mandatory" title="Description : &#013; A flag sending an indication that the collection account has been settled in full.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Y = Yes &#013; N = No &#013; &#013; Blank fill if not applicable">Account Settled In Full Indicator<br>
+			(2373 - 2373)</th>
+			<th class="Mandatory" title="Description : &#013; An indication for FIS Complete Payment Recovery Services (CPRS) to perform collection services on the account reported. Customer must be contracted with CPRS for collections. &#013; &#013; Report for Closure Detail Records only.&#013;&#013;Format Rules / Values List :&#013; Valid Values: &#013; Y = Yes &#013; N = No &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq #2">FIS Collect Debt Indicator<br>
+			(2374 - 2374)</th>
+			<th class="Conditional" title="Description : &#013; The total dollar amount to be forwarded to Complete Payment Recovery Services (CPRS). &#013; &#013; Report for Closure Detail records only and using FIS CPRS. &#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting FIS Collect Debt Indicator, seq #96= 'Y'. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; Blank fill if not applicable or Record Type Code = Account Status 'AS' seq #2">Total Collection Amount<br>
+			(2375 - 2389)</th>
+			<th class="Conditional" title="Description : &#013; The amount of the principal debt relative to Complete Payment Recovery Services (CPRS). &#013; &#013; Report for Closure Detail records only and using FIS CPRS.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting FIS Collect Debt Indicator, seq #96 = 'Y'. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; Blank fill if not applicable or Record Type Code = Account Status 'AS' seq #2">Principal Debt Amount<br>
+			(2390 - 2404)</th>
+			<th class="Conditional" title="Description : &#013; The services charges associated with the Principal Debt Amount. &#013; &#013; Report for Closure Detail records only and using FIS CPRS.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting FIS Collect Debt Indicator, seq #96 = 'Y'. &#013; &#013; Valid Values: &#013; &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled. &#013; &#013; Blank fill if not applicable or Record Type Code = Account Status 'AS' seq #2">Service Charges<br>
+			(2405 - 2419)</th>
+			<th class="Conditional" title="Description : &#013; The interest charges associated with the Principal Debt Amount. &#013; &#013; Report for Closure Detail records only and using CPRS.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting FIS Collect Debt Indicator, seq #96 = 'Y'. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Right justified zero filled &#013; &#013; Blank fill if not applicable or Record Type Code = Account Status 'AS' seq #2">Interest Charges Amount<br>
+			(2420 - 2434)</th>
+			<th class="Conditional" title="Description : &#013; Any other charges associated with the Principal Debt Amount. &#013; &#013; Report for Closure Detail records only and using CPRS.&#013;&#013;Format Rules / Values List :&#013; Conditionally required when reporting FIS Collect Debt Indicator, seq #96= 'Y'. &#013; &#013; Valid Values: &#013; Dollars and cents without a decimal point or a dollar sign. Insert a (-) negative sign before the dollar amount to indicate a number less than zero. &#013; &#013; Blank fill if not applicable or Record Type Code = Account Status 'AS' seq #2">Other Charges Amount<br>
+			(2435 - 2449)</th>
+			<th class="Mandatory" title="Description : &#013; The name of the department authorizing the information to be sent to CPRS or Chex. &#013; &#013; Report for Closure Detail records only and using CPRS. &#013;&#013;Format Rules / Values List :&#013; Required if the Record Type Code is set to a Closure 'CL', seq #2. &#013; &#013; Valid Format Example: &#013; OPERATIONS &#013; &#013; Blank fill if Record Type = Account Status 'AS' seq #2">Authorized by Dept.<br>
+			(2450 - 2469)</th>
+			<th class="Mandatory" title="Description : &#013; The phone number of the department authorizing information to be sent to CPRS or Chex. &#013; &#013; Report for Closure Detail records only and using CPRS.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type Code is set to a Closure 'CL', seq #2. &#013; &#013; Valid Format: AAAPPPNNNN &#013; (AAA = Area Code, PPP = Phone Prefix, NNNN = Phone Number) &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq #2">Phone Number of Authorizing Dept.<br>
+			(2470 - 2479)</th>
+			<th class="Mandatory" title="Description : &#013; The date the account went negative and caused the closure. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type Code is set to a Closure 'CL', seq #2. &#013; &#013; Valid Format: YYYYMMDD &#013; Must not be reported as a future date. &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq #2">Debt Incurred Date<br>
+			(2480 - 2487)</th>
+			<th class="Mandatory" title="Description : &#013; This is a notification that the consumer is disputing information reported to Chex. &#013; &#013; Report for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Required if the Record Type Code is set to a Closure 'CL', seq #2. &#013; &#013; Valid Values: &#013; Y = Yes &#013; N = No &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq #2">Consumer Dispute<br>
+			(2488 - 2488)</th>
+			<th class="Not_Mandatory" title="Description : &#013; An identifier for your financial institution as assigned by your data provider. &#013;&#013;Format Rules / Values List :&#013; Blank fill if not applicable">Third Party Bank Code<br>
+			(2489 - 2498)</th>
+			<th class="Not_Mandatory" title="Description : &#013; May represent a branch number within the Client's Core banking system.&#013;&#013;Format Rules / Values List :&#013; Client specific Branch Number used by the Client or Data Provider for tracking purposes only. &#013; &#013; Blank fill if not applicable">Branch Number<br>
+			(2499 - 2508)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Represents the geographical location name of the branch identified in this record.&#013;&#013;Format Rules / Values List :&#013; Client specific Branch Number used by the Client or Data Provider for tracking purposes only. &#013; &#013; Blank fill if not applicable">Branch Location Name<br>
+			(2509 - 2523)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Indicates the geographic region of the Item Processor. directs their process&#013;&#013;Format Rules / Values List :&#013; Optional if Data Provider is your Item Processor. &#013; &#013; Blank fill if not applicable">Region Number<br>
+			(2524 - 2533)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Indicates that a previously closed account has been re-opened or re-activated by the Client.&#013;&#013;Format Rules / Values List :&#013; Optional if Record Type Code is set to a Closure 'CL' seq #2. &#013; Valid Values: &#013; Y = Account has been re-opened or re-activated &#013; N or blank = Not Applicable &#013; &#013; Blank fill if Record Type Code = Account Status 'AS' seq #2">Account Reopen/Reactivate Indicator<br>
+			(2534 - 2534)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill">Filler<br>
+			(2535 - 2539)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Chex internal use for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Blank fill">Comments 1<br>
+			(2540 - 2579)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Chex internal use for Closure Detail records only.&#013;&#013;Format Rules / Values List :&#013; Blank fill">Comments 2<br>
+			(2580 - 2619)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Represents the total number of days throughout the reporting period that the account was in an Overdraft Status, seq #12. &#013;&#013;Format Rules / Values List :&#013; Record Type Code = Account Status 'AS': &#013; &#013; Provide if available when the Account Type Code is a CHE or DCA, seq #7. &#013; &#013; Right justify, zero fill. &#013; Blank fill if not available or Record Type Code = Closure 'CL' seq #2.">Number of Days Overdraft<br>
+			(2620 - 2622)</th>
+			<th class="Not_Mandatory" title="Description : &#013; When reporting an Overdraft Status (seq# 12 = OD), this reflects the number of days the account has been in the Overdraft Status as of the end of the reporting period.&#013;&#013;Format Rules / Values List :&#013; Conditionally required if the Record Type is set to Account Status 'AS', seq #2 and seq #12 = 'OD'. &#013; &#013; Right justify, zero fill. &#013; &#013; Blank fill for any other Account Status Type Code in seq #12 or the Record Type Code = Closure 'CL' seq #2 &#013; ">Number of Days Currently Overdraft<br>
+			(2623 - 2625)</th>
+			<th class="Not_Mandatory" title="Description : &#013; Future use&#013;&#013;Format Rules / Values List :&#013; Blank fill&nbsp;">Filler<br>
+			(2626 - 2750)</th>
+			</tr>
+		<tr id="r1" onclick="highlight_row(this)">
+			<!--="<td><input type="&CHAR(34)&"text"&CHAR(34)&" maxlength="&CHAR(34)&F2&CHAR(34)&" id="&CHAR(34)&"c"&K2&CHAR(34)&" oninput="&CHAR(34)&"auto_tab(this)"&CHAR(34)&"></td>"-->
+			<td><select id="Signer_Type_1" name="Signer_Type" onchange="Select_Signer_type()">
+				<option value="Business">
+					Business
+				</option>
+				<option selected value="Consumer">
+					Consumer
+				</option>
+			</select></td><!--="<td><input type="&CHAR(34)&"text"&CHAR(34)&" maxlength="&CHAR(34)&F2&CHAR(34)&" id="&CHAR(34)&"c"&K2&CHAR(34)&" onfocus="&CHAR(34)&"highlight_col(this)"&CHAR(34)&" onkeyup="&CHAR(34)&"auto_tab(this)"&CHAR(34)&"></td>"-->
+			<td><input id="c1" maxlength="24" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c2" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c3" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c4" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c5" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c6" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c7" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c8" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c9" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c10" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c11" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c12" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c13" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c14" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c15" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c16" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c17" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c18" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c19" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c20" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c21" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c22" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c23" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c24" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c25" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c26" maxlength="35" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c27" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c28" maxlength="35" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c29" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c30" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c31" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c32" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c33" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c34" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c35" maxlength="95" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c36" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c37" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c38" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c39" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c40" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c41" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c42" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c43" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c44" maxlength="85" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c45" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c46" maxlength="85" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c47" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c48" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c49" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c50" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c51" maxlength="4" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c52" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c53" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c54" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c55" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c56" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c57" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c58" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c59" maxlength="50" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c60" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c61" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c62" maxlength="100" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c63" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c64" maxlength="99" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c65" maxlength="99" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c66" maxlength="99" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c67" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c68" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c69" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c70" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c71" maxlength="99" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c72" maxlength="99" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c73" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c74" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c75" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c76" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c77" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c78" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c79" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c80" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c81" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c82" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c83" maxlength="100" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c84" maxlength="355" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c85" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c86" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c87" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c88" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c89" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c90" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c91" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c92" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c93" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c94" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c95" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c96" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c97" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c98" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c99" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c100" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c101" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c102" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c103" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c104" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c105" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c106" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c107" maxlength="118" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c108" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c109" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c110" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c111" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c112" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c113" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c114" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c115" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c116" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c117" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c118" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c119" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c120" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c121" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c122" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c123" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c124" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c125" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c126" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c127" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c128" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c129" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c130" maxlength="125" onkeyup="auto_tab(this)" type="text"></td>
+		</tr>
+	</table><br>
+	<form>
+		<input id="new_record_btn" onclick="newrecord(this.id)" type="button" value="Insert New Detailed Record">
+	</form>
+	<p>Enter the number of records to be generated : <input id="ac_count" onchange="generate_accnos()" type="text">
+	 <input id="export_series" onclick="saveTextAsFile(this.id)" type="button" value="Generate records"></p>
+	<div id="generate_record_in_IE">
+		<p>Enter the number of records to be generated : <input id="id_id" name="id" type="text" value=""></p>
+		<p>Write file to : <input id="write_id" name="write" type="text" value="C:/CCC2017_2011R" title="Please make sure that the path doesn't end with a &quot;/&quot; or &quot;\&quot;">
+		<a target = "_blank" id="open_path"><input id="writedata" onclick="Writedata()" type="button" value="Generate records" style="margin:0px 0px 0px 45px;"></a></p>
+	</div>
+	<script src="../js/index_2011.js">
+	</script>
+</body>
+</html>
