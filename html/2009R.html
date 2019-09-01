@@ -6,7 +6,7 @@
 	<link href="../css/style_all.css" rel="stylesheet">
 	<link href="../css/favicon_c.png" rel="icon" type="image">
 </head>
-<body>
+<body onload="input_width()">
 	<div id="Batch_Input_Reader">
 		<h2>Batch Input Reader - 2009R Specification</h2>
 	</div>
@@ -199,9 +199,9 @@
 			<th>Account Type Code<br>
 			(1177 - 1179)</th>
 			<th>Acquirer Identifier<br>
-			(1180 - 1185)</th>
+			(1180 - 1187)</th>
 			<th>Date Account Sold<br>
-			(1186 - 1195)</th>
+			(1188 - 1195)</th>
 			<th>Sold to Entity Name<br>
 			(1196 - 1230)</th>
 			<th>Date Account Purchased<br>
@@ -223,7 +223,7 @@
 			<th>Other Charges<br>
 			(1332 - 1340)</th>
 			<th>Filler<br>
-			(1341 - 8)</th>
+			(1341 - 1351)</th>
 			<th>Filler<br>
 			(1352 - 1361)</th>
 			<th>Filler<br>
@@ -321,156 +321,156 @@
 		</tr>
 		<tr id="r1" onclick="highlight_row(this)">
 			<!--="<td><input type="&CHAR(34)&"text"&CHAR(34)&" maxlength="&CHAR(34)&F2&CHAR(34)&" id="&CHAR(34)&"c"&K2&CHAR(34)&" oninput="&CHAR(34)&"auto_tab(this)"&CHAR(34)&"></td>"-->
-			<td><input id="c1" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c2" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c3" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c4" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c5" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c6" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c7" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c8" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c9" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c10" maxlength="12" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c11" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c12" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c13" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c14" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c15" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c16" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c17" maxlength="25" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c18" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c19" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c20" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c21" maxlength="6" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c22" maxlength="4" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c23" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c24" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c25" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c26" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c27" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c28" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c29" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c30" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c31" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c32" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c33" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c34" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c35" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c36" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c37" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c38" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c39" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c40" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c41" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c42" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c43" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c44" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c45" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c46" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c47" maxlength="12" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c48" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c49" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c50" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c51" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c52" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c53" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c54" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c55" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c56" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c57" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c58" maxlength="50" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c59" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c60" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c61" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c62" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c63" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c64" maxlength="49" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c65" maxlength="49" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c66" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c67" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c68" maxlength="6" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c69" maxlength="4" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c70" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c71" maxlength="50" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c72" maxlength="49" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c73" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c74" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c75" maxlength="6" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c76" maxlength="4" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c77" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c78" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c79" maxlength="60" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c80" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c81" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c82" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c83" maxlength="40" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c84" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c85" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c86" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c87" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c88" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c89" maxlength="5" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c90" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c91" maxlength="6" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c92" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c93" maxlength="35" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c94" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c95" maxlength="35" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c96" maxlength="20" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c97" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c98" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c99" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c100" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c101" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c102" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c103" maxlength="11" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c104" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c105" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c106" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c107" maxlength="2" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c108" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c109" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c110" maxlength="30" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c111" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c112" maxlength="9" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c113" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c114" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c115" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c116" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c117" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c118" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c119" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c120" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c121" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c122" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c123" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c124" maxlength="24" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c125" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c126" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c127" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c128" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c129" maxlength="120" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c130" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c131" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c132" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c133" maxlength="3" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c134" maxlength="24" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c135" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c136" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c137" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c138" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c139" maxlength="120" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c140" maxlength="14" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c141" maxlength="14" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c142" maxlength="14" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c143" maxlength="14" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c144" maxlength="14" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c145" maxlength="1" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c146" maxlength="8" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c147" maxlength="10" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c148" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c149" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
-			<td><input id="c150" maxlength="15" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c1" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c2" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c3" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c4" maxlength="20" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c5" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c6" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c7" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c8" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c9" maxlength="20" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c10" maxlength="12" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c11" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c12" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c13" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c14" maxlength="25" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c15" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c16" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c17" maxlength="25" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c18" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c19" maxlength="20" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c20" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c21" maxlength="6" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c22" maxlength="4" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c23" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c24" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c25" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c26" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c27" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c28" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c29" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c30" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c31" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c32" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c33" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c34" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c35" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c36" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c37" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c38" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c39" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c40" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c41" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c42" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c43" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c44" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c45" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c46" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c47" maxlength="12" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c48" maxlength="20" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c49" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c50" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c51" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c52" maxlength="30" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c53" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c54" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c55" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c56" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c57" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c58" maxlength="50" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c59" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c60" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c61" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c62" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c63" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c64" maxlength="49" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c65" maxlength="49" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c66" maxlength="30" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c67" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c68" maxlength="6" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c69" maxlength="4" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c70" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c71" maxlength="50" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c72" maxlength="49" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c73" maxlength="30" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c74" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c75" maxlength="6" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c76" maxlength="4" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c77" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c78" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c79" maxlength="60" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c80" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c81" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c82" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c83" maxlength="40" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c84" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c85" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c86" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c87" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c88" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c89" maxlength="5" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c90" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c91" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c92" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c93" maxlength="35" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c94" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c95" maxlength="35" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c96" maxlength="20" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c97" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c98" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c99" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c100" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c101" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c102" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c103" maxlength="11" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c104" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c105" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c106" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c107" maxlength="2" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c108" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c109" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c110" maxlength="30" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c111" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c112" maxlength="9" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c113" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c114" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c115" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c116" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c117" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c118" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c119" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c120" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c121" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c122" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c123" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c124" maxlength="24" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c125" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c126" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c127" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c128" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c129" maxlength="120" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c130" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c131" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c132" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c133" maxlength="3" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c134" maxlength="24" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c135" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c136" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c137" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c138" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c139" maxlength="120" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c140" maxlength="14" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c141" maxlength="14" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c142" maxlength="14" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c143" maxlength="14" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c144" maxlength="14" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c145" maxlength="1" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c146" maxlength="8" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c147" maxlength="10" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c148" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c149" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
+			<td><input id="c150" maxlength="15" onfocus="maxlength_width(this)" onfocusout="focus_out_width(this)" onkeyup="auto_tab(this)" type="text"></td>
 		</tr>
 	</table><br>
 	<form>
